@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "helio-safety-gate"
+version = "2.5.0"
+description = "Deterministic Pre-LLM & Post-LLM Clinical Safety Gate, AES-256-GCM PIIVault, and Tamil/Tanglish Benchmark Commons for Human-Scale Healthcare AI"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.9"
+authors = [
+  { name = "Mohammed Haroon J", email = "haroon@heonixai.in" }
+]
+keywords = [
+  "healthcare-ai",
+  "clinical-safety",
+  "tamil-nlp",
+  "tanglish",
+  "human-scale-ai",
+  "local-first",
+  "dpdp",
+  "deterministic-guardrails"
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Healthcare Industry",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+  "Topic :: Security :: Cryptography"
+]
+dependencies = []
+
+[project.optional-dependencies]
+crypto = ["cryptography>=41.0.0"]
+
+[project.urls]
+Homepage = "https://heonixai.in"
+Repository = "https://github.com/haroon-cpu/helio-safety-gate"
+Issues = "https://github.com/haroon-cpu/helio-safety-gate/issues"
+
+[project.scripts]
+helio-safety-gate = "helio_safety_gate:main"
+
+[tool.setuptools]
+py-modules = ["helio_safety_gate", "benchmark_tamil_safety"]

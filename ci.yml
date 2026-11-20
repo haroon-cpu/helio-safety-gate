@@ -1,0 +1,38 @@
+name: HELIO Safety Gate CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run CLI demonstration (zero external dependencies)
+        run: python helio_safety_gate.py
+
+      - name: Verify JSON CLI triage and Zero-Rx output guard
+        run: |
+          python helio_safety_gate.py --json "Nenju valikkudhu, idadhu kai valikkudhu"
+          python helio_safety_gate.py --check-reply "Clinic opens at 10 AM tomorrow."
+
+      - name: Run full adversarial & unit test suite
+        run: python -m unittest test_safety_gate.py -v
+
+      - name: Run 100-case Tamil/Tanglish clinical safety benchmark
+        run: python benchmark_tamil_safety.py --strict
